@@ -31,6 +31,31 @@ resource "azurerm_network_security_group" "kubernetes_nsg" {
     ]
 }
 
+# Connect the Network Security Group to the Subnet
+resource "azurerm_subnet_network_security_group_association" "kubernetes_nsg_association" {
+    network_security_group_id                   = azurerm_network_security_group.kubernetes_nsg.id
+    subnet_id                                   = azurerm_subnet.kubernetes_subnet.id
+}
+
+# Network Security Group - Rule
+resource "azurerm_network_security_rule" "enable_ssh" {
+    name                                        = "SSH"
+    priority                                    = 100
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "22"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
 # Network Interface Card
 resource "azurerm_network_interface" "server_nic" {
     for_each                            = var.SERVER
@@ -39,9 +64,10 @@ resource "azurerm_network_interface" "server_nic" {
     resource_group_name                 = var.RESOURCE_GROUP_NAME
 
     ip_configuration {
-        name                                      = "${each.value.SERVER_NAME}-ip-config"
-        subnet_id                                 = azurerm_subnet.kubernetes_subnet.id
-        private_ip_address_allocation             = "dynamic"  
+        name                                        = "${each.value.SERVER_NAME}-ip-config"
+        subnet_id                                   = azurerm_subnet.kubernetes_subnet.id
+        private_ip_address_allocation               = "dynamic"
+        public_ip_address_id                        = azurerm_public_ip.sandbox_public_ip[each.key].id
     }
 }
 
