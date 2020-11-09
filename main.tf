@@ -26,4 +26,10 @@ resource "azurerm_network_interface" "server_nics" {
     name                                = each.value.SERVER_NAME
     location                            = var.AZURE_REGION
     resource_group_name                 = var.RESOURCE_GROUP_NAME
+
+    ip_configuration {
+        name                                      = "${each.value.SERVER_NAME}-ip-config"
+        subnet_id                                 = azurerm_subnet.kubernetes_subnet.id
+        private_ip_address_allocation             = "dynamic"  
+    }
 }
