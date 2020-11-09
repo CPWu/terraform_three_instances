@@ -17,7 +17,7 @@ jobs:
       - name: AZ Login
         uses: azure/login@v1
         with: 
-          creds: ${{ secrets.REMOTE_STATE }}
+          creds: ${{ secrets.AZ_CREDENTIALS }}
 
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions/@master
