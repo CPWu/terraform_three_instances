@@ -33,6 +33,11 @@ variable "SERVER" {
 }
 
 # Cluster Configuration
+variable "STACK_NAME" {
+    type                            = string
+    default                         = "kubernetes"
+    description                     = "Identifier used for this entire stack or project"
+}
 variable "RESOURCE_GROUP_NAME" {
     type                            = string
     default                         = "kubernetes-rg"

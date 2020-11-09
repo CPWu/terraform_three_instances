@@ -20,6 +20,13 @@ resource "azurerm_subnet" "kubernetes_subnet" {
     address_prefixes                    = [var.SUBNET_ADDRESS_PREFIX]
 }
 
+# Network Security Group
+resource "azurerm_network_security_group" "kubernetes_nsg" {
+    name                                      = "${var.STACK_NAME}-nsg"
+    location                                  = var.AZURE_REGION
+    resource_group_name                       = var.RESOURCE_GROUP_NAME
+}
+
 # Network Interface Card
 resource "azurerm_network_interface" "server_nics" {
     for_each                            = var.SERVER
