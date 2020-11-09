@@ -13,17 +13,18 @@ variable "TENANT_ID" {
 }
 
 # Node Configuration - For Each
-variable "cluster" {
+variable "SERVER" {
+    description     = "Map of Server Configuration"
     type = map
     default = {
         masterNode = {
-
+            SERVER_NAME            = "masternode"
         },
         slaveNodeOne = {
-
+            SERVER_NAME            = "slavenode01"
         },
         slaveNodeTwo = {
-
+            SERVER_NAME            = "slavenode02"            
         }
     }
 }
