@@ -25,6 +25,10 @@ resource "azurerm_network_security_group" "kubernetes_nsg" {
     name                                      = "${var.STACK_NAME}-nsg"
     location                                  = var.AZURE_REGION
     resource_group_name                       = var.RESOURCE_GROUP_NAME
+
+    depends_on = [
+        azurerm_resource_group.kubernetes_rg,
+    ]
 }
 
 # Network Interface Card
@@ -48,6 +52,10 @@ resource "azurerm_public_ip" "sandbox_public_ip" {
     location                            = var.AZURE_REGION
     resource_group_name                 = var.RESOURCE_GROUP_NAME
     allocation_method                   = each.value.IP_TYPE
+
+    depends_on = [
+        azurerm_resource_group.kubernetes_rg,
+    ]
 }
 
 # Connect the security group to the network interface card
