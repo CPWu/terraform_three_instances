@@ -26,7 +26,7 @@ jobs:
           tf_actions_subcommand: 'init'    
           tf_actions_working_dir: '.'
           tf_actions_comment: true  
-          args: '-backend-config="token=${{ secrets.STORAGE_ACCOUNT_KEY }}"'
+          args: '-backend-config="SUBSCRIPTION_ID=${{ secrets.AZ_SUBSCRIPTION_ID }}" -backend-config="TENANT_ID=${{ secrets.AZ_TENANT_ID }}" -backend-config="CLIENT_ID=${{ secrets.TF_CLIENT_ID }}" -backend-config="CLIENT_SECRET=${{ secrets.TF_CLIENT_SECRET }}" '
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
