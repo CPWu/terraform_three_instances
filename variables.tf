@@ -32,7 +32,7 @@ variable "SERVER" {
 # Cluster Configuration
 variable "RESOURCE_GROUP_NAME" {
     type                            = string
-    default                         = "sandbox-rg"
+    default                         = "kubernetes-rg"
     description                     = "Name of the resource group where resources will be created"
 }
 variable "AZURE_REGION" {
