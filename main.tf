@@ -23,7 +23,7 @@ resource "azurerm_subnet" "kubernetes_subnet" {
 # Network Interface Card
 resource "azurerm_network_interface" "server_nics" {
     for_each                            = var.SERVER
-    name                                = each.value.SERVER_NAME
+    name                                = "${each.value.SERVER_NAME}-nic"
     location                            = var.AZURE_REGION
     resource_group_name                 = var.RESOURCE_GROUP_NAME
 
@@ -32,4 +32,13 @@ resource "azurerm_network_interface" "server_nics" {
         subnet_id                                 = azurerm_subnet.kubernetes_subnet.id
         private_ip_address_allocation             = "dynamic"  
     }
+}
+
+# Public IP Address
+resource "azurerm_public_ip" "sandbox_public_ip" {
+    for_each                            = var.SERVER
+    name                                = "${each.value.SERVER_NAME}-public-ip"
+    location                            = var.AZURE_REGION
+    resource_group_name                 = var.RESOURCE_GROUP_NAME
+    allocation_method                   = each.value.IP_TYPE
 }

@@ -19,12 +19,15 @@ variable "SERVER" {
     default = {
         masterNode = {
             SERVER_NAME            = "masternode"
+            IP_TYPE                = "Dynamic"
         },
         slaveNodeOne = {
             SERVER_NAME            = "slavenode01"
+            IP_TYPE                = "Dynamic"           
         },
         slaveNodeTwo = {
-            SERVER_NAME            = "slavenode02"            
+            SERVER_NAME            = "slavenode02" 
+            IP_TYPE                = "Dynamic"           
         }
     }
 }
