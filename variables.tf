@@ -23,13 +23,29 @@ variable "SERVER" {
             SERVER_SIZE             = "Standard_B1s"
             USERNAME                = "myadmin"
             PASSWORD                = "Password123"
+            # OS Disk
+            CACHING                 = "ReadWrite"
+            STORAGE_ACCOUNT_TYPE    = "Standard_LRS"
+            # Source Image Reference
+            PUBLISHER               = "Canonical"
+            OFFER                   = "UbuntuServer"
+            SKU                     = "18.04-LTS"
+            VERSION                 = "latest"
         },
         slaveNodeOne = {
             SERVER_NAME             = "slavenode01"
             IP_TYPE                 = "Dynamic"
             SERVER_SIZE             = "Standard_B1s"
             USERNAME                = "myadmin"
-            PASSWORD                = "Password123"           
+            PASSWORD                = "Password123"
+            # OS Disk
+            CACHING                 = "ReadWrite"
+            STORAGE_ACCOUNT_TYPE    = "Standard_LRS"
+            # Source Image Reference
+            PUBLISHER               = "Canonical"
+            OFFER                   = "UbuntuServer"
+            SKU                     = "18.04-LTS"
+            VERSION                 = "latest"           
         },
         slaveNodeTwo = {
             SERVER_NAME             = "slavenode02" 
@@ -37,6 +53,14 @@ variable "SERVER" {
             SERVER_SIZE             = "Standard_B1s"
             USERNAME                = "myadmin"
             PASSWORD                = "Password123"
+            # OS Disk
+            CACHING                 = "ReadWrite"
+            STORAGE_ACCOUNT_TYPE    = "Standard_LRS"
+            # Source Image Reference
+            PUBLISHER               = "Canonical"
+            OFFER                   = "UbuntuServer"
+            SKU                     = "18.04-LTS"
+            VERSION                 = "latest"
         }
     }
 }

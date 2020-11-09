@@ -107,15 +107,15 @@ resource "azurerm_linux_virtual_machine" "server" {
     ]
 
     os_disk {
-        caching                                 = "ReadWrite"
-        storage_account_type                    = "Standard_LRS"
+        caching                                 = each.value.CACHING
+        storage_account_type                    = each.value.STORAGE_ACCOUNT_TYPE
     }
 
     source_image_reference {
-        publisher                               = "Canonical"
-        offer                                   = "UbuntuServer"
-        sku                                     = "18.04-LTS"
-        version                                 = "latest"
+        publisher                               = each.value.PUBLISHER
+        offer                                   = each.value.OFFER
+        sku                                     = each.value.SKU
+        version                                 = each.value.VERSION
     }
 
     depends_on = [
