@@ -50,7 +50,7 @@ resource "azurerm_public_ip" "sandbox_public_ip" {
     allocation_method                   = each.value.IP_TYPE
 }
 
-# Connect the security group to the network interface cards
+# Connect the security group to the network interface card
 resource "azurerm_network_interface_security_group_association" "nic_to_nsg" {
     for_each                                    = var.SERVER
     network_interface_id                        = azurerm_network_interface.server_nics[each.key].id
