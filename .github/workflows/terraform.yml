@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
-
+  
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions/@master
         with:
@@ -21,7 +21,10 @@ jobs:
           tf_actions_subcommand: 'init'    
           tf_actions_working_dir: '.'
           tf_actions_comment: true   
-
+          args: '-var="SUBSCRIPTION_ID=${{ secrets.AZ_SUBSCRIPTION_ID }}" -var="TENANT_ID=${{ secrets.AZ_TENANT_ID }}" -var="CLIENT_ID=${{ secrets.TF_CLIENT_ID }}" -var="CLIENT_SECRET=${{ secrets.TF_CLIENT_SECRET }}"'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: 'Terraform Plan'
         uses: hashicorp/terraform-github-actions/@master
         with:
