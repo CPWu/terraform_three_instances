@@ -90,3 +90,35 @@ resource "azurerm_network_interface_security_group_association" "nic_to_nsg" {
     network_interface_id                        = azurerm_network_interface.server_nic[each.key].id
     network_security_group_id                   = azurerm_network_security_group.kubernetes_nsg.id
 }
+
+# Linux Virtual Machine
+resource "azurerm_linux_virtual_machine" "server" {
+    for_each                                    = var.SERVER
+    name                                        = each.value.SERVER_NAME
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    location                                    = var.AZURE_REGION
+    size                                        = each.value.SERVER_SIZE
+    admin_username                              = each.value.USERNAME
+    admin_password                              = each.value.PASSWORD
+    disable_password_authentication             = false
+
+    network_interface_ids = [
+        azurerm_network_interface.server_nic[each.key].id
+    ]
+
+    os_disk {
+        caching                                 = "ReadWrite"
+        storage_account_type                    = "Standard_LRS"
+    }
+
+    source_image_reference {
+        publisher                               = "Canonical"
+        offer                                   = "UbuntuServer"
+        sku                                     = "18.04-LTS"
+        version                                 = "latest"
+    }
+
+    depends_on = [
+        azurerm_network_interface.server_nic
+    ]
+}

@@ -18,16 +18,25 @@ variable "SERVER" {
     type = map
     default = {
         masterNode = {
-            SERVER_NAME            = "masternode"
-            IP_TYPE                = "Dynamic"
+            SERVER_NAME             = "masternode"
+            IP_TYPE                 = "Dynamic"
+            SERVER_SIZE             = "Standard_B1s"
+            USERNAME                = "myadmin"
+            PASSWORD                = "Password123"
         },
         slaveNodeOne = {
-            SERVER_NAME            = "slavenode01"
-            IP_TYPE                = "Dynamic"           
+            SERVER_NAME             = "slavenode01"
+            IP_TYPE                 = "Dynamic"
+            SERVER_SIZE             = "Standard_B1s"
+            USERNAME                = "myadmin"
+            PASSWORD                = "Password123"           
         },
         slaveNodeTwo = {
-            SERVER_NAME            = "slavenode02" 
-            IP_TYPE                = "Dynamic"           
+            SERVER_NAME             = "slavenode02" 
+            IP_TYPE                 = "Dynamic"
+            SERVER_SIZE             = "Standard_B1s"
+            USERNAME                = "myadmin"
+            PASSWORD                = "Password123"
         }
     }
 }
