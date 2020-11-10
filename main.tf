@@ -59,7 +59,7 @@ resource "azurerm_network_security_rule" "enable_ssh" {
 # Network Security Group - Rule (SSH)
 resource "azurerm_network_security_rule" "http" {
     name                                        = "http"
-    priority                                    = 100
+    priority                                    = 101
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
