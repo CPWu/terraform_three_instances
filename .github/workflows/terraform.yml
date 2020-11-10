@@ -14,11 +14,6 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
   
-      - name: AZ Login
-        uses: azure/login@v1
-        with: 
-          creds: ${{ secrets.AZ_CREDENTIALS }}
-
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions/@master
         with:

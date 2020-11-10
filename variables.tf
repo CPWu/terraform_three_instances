@@ -20,7 +20,7 @@ variable "SERVER" {
         masterNode = {
             SERVER_NAME             = "masternode"
             IP_TYPE                 = "Dynamic"
-            SERVER_SIZE             = "Standard_B1s"
+            SERVER_SIZE             = "Standard_B2ms"
             USERNAME                = "myadmin"
             PASSWORD                = "Password123"
             # OS Disk
@@ -35,7 +35,7 @@ variable "SERVER" {
         slaveNodeOne = {
             SERVER_NAME             = "slavenode01"
             IP_TYPE                 = "Dynamic"
-            SERVER_SIZE             = "Standard_B1s"
+            SERVER_SIZE             = "Standard_B2ms"
             USERNAME                = "myadmin"
             PASSWORD                = "Password123"
             # OS Disk
@@ -50,7 +50,7 @@ variable "SERVER" {
         slaveNodeTwo = {
             SERVER_NAME             = "slavenode02" 
             IP_TYPE                 = "Dynamic"
-            SERVER_SIZE             = "Standard_B1s"
+            SERVER_SIZE             = "Standard_B2ms"
             USERNAME                = "myadmin"
             PASSWORD                = "Password123"
             # OS Disk
