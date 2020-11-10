@@ -37,7 +37,7 @@ resource "azurerm_subnet_network_security_group_association" "kubernetes_nsg_ass
     subnet_id                                   = azurerm_subnet.kubernetes_subnet.id
 }
 
-# Network Security Group - Rule
+# Network Security Group - Rule (SSH)
 resource "azurerm_network_security_rule" "enable_ssh" {
     name                                        = "SSH"
     priority                                    = 100
@@ -46,6 +46,119 @@ resource "azurerm_network_security_rule" "enable_ssh" {
     protocol                                    = "TCP"
     source_port_range                           = "*"
     destination_port_range                      = "22"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
+# Network Security Group - Rule (Control Plane - Kubernetes API Server)
+resource "azurerm_network_security_rule" "kubernetes_api_server" {
+    name                                        = "kubernetes-api-server"
+    priority                                    = 150
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "6443"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
+# Network Security Group - Rule (Control Plane - etcd Server Client API)
+resource "azurerm_network_security_rule" "etcd_server_client_api" {
+    name                                        = "etcd-server-client-api"
+    priority                                    = 150
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "2379-2380"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
+# Network Security Group - Rule (Control Plane/Worker Node - Kubelet API)
+resource "azurerm_network_security_rule" "kubelet_api" {
+    name                                        = "kubelet-api"
+    priority                                    = 150
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "10250"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
+# Network Security Group - Rule (Control Plane - Kube Scheduler)
+resource "azurerm_network_security_rule" "kube_scheduler" {
+    name                                        = "kube-scheduler"
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "10251"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
+# Network Security Group - Rule (Control Plane - Kube Controller Manager)
+resource "azurerm_network_security_rule" "kube_controller_manager" {
+    name                                        = "kube-controller-manager"
+    priority                                    = 150
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "10252"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
+# Network Security Group - Rule  (Control Plane - NodePort Services)
+resource "azurerm_network_security_rule" "node_port_services" {
+    name                                        = "node-port-services"
+    priority                                    = 150
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "30000-32767"
     source_address_prefix                       = "*"
     destination_address_prefix                  = "*"
     resource_group_name                         = var.RESOURCE_GROUP_NAME
