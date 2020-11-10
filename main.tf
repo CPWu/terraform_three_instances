@@ -116,6 +116,7 @@ resource "azurerm_network_security_rule" "kubelet_api" {
 # Network Security Group - Rule (Control Plane - Kube Scheduler)
 resource "azurerm_network_security_rule" "kube_scheduler" {
     name                                        = "kube-scheduler"
+    priority                                    = 150
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
