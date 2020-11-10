@@ -78,7 +78,7 @@ resource "azurerm_network_security_rule" "kubernetes_api_server" {
 # Network Security Group - Rule (Control Plane - etcd Server Client API)
 resource "azurerm_network_security_rule" "etcd_server_client_api" {
     name                                        = "etcd-server-client-api"
-    priority                                    = 150
+    priority                                    = 151
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
@@ -97,7 +97,7 @@ resource "azurerm_network_security_rule" "etcd_server_client_api" {
 # Network Security Group - Rule (Control Plane/Worker Node - Kubelet API)
 resource "azurerm_network_security_rule" "kubelet_api" {
     name                                        = "kubelet-api"
-    priority                                    = 150
+    priority                                    = 152
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
@@ -116,7 +116,7 @@ resource "azurerm_network_security_rule" "kubelet_api" {
 # Network Security Group - Rule (Control Plane - Kube Scheduler)
 resource "azurerm_network_security_rule" "kube_scheduler" {
     name                                        = "kube-scheduler"
-    priority                                    = 150
+    priority                                    = 153
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
@@ -135,7 +135,7 @@ resource "azurerm_network_security_rule" "kube_scheduler" {
 # Network Security Group - Rule (Control Plane - Kube Controller Manager)
 resource "azurerm_network_security_rule" "kube_controller_manager" {
     name                                        = "kube-controller-manager"
-    priority                                    = 150
+    priority                                    = 154
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
@@ -154,7 +154,7 @@ resource "azurerm_network_security_rule" "kube_controller_manager" {
 # Network Security Group - Rule  (Control Plane - NodePort Services)
 resource "azurerm_network_security_rule" "node_port_services" {
     name                                        = "node-port-services"
-    priority                                    = 150
+    priority                                    = 155
     direction                                   = "Inbound"
     access                                      = "Allow"
     protocol                                    = "TCP"
