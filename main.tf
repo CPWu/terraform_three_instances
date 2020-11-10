@@ -56,6 +56,25 @@ resource "azurerm_network_security_rule" "enable_ssh" {
     ]
 }
 
+# Network Security Group - Rule (SSH)
+resource "azurerm_network_security_rule" "http" {
+    name                                        = "http"
+    priority                                    = 100
+    direction                                   = "Inbound"
+    access                                      = "Allow"
+    protocol                                    = "TCP"
+    source_port_range                           = "*"
+    destination_port_range                      = "80"
+    source_address_prefix                       = "*"
+    destination_address_prefix                  = "*"
+    resource_group_name                         = var.RESOURCE_GROUP_NAME
+    network_security_group_name                 = azurerm_network_security_group.kubernetes_nsg.name
+
+    depends_on = [
+        azurerm_network_security_group.kubernetes_nsg
+    ]
+}
+
 # Network Security Group - Rule (Control Plane - Kubernetes API Server)
 resource "azurerm_network_security_rule" "kubernetes_api_server" {
     name                                        = "kubernetes-api-server"
