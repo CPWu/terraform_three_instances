@@ -225,7 +225,7 @@ resource "azurerm_network_interface_security_group_association" "nic_to_nsg" {
 }
 
 data "template_file" "linux_vm_cloud_config" {
-    template                                    = file("configuration/test.sh")
+    template                                    = file("./configuration/bootstrap_k8s.sh")
 }
 
 # Linux Virtual Machine
@@ -238,7 +238,7 @@ resource "azurerm_linux_virtual_machine" "server" {
     admin_username                              = each.value.USERNAME
     admin_password                              = each.value.PASSWORD
     disable_password_authentication             = false
-    custom_data                                 = base64encode(data.template_file.linux_vm_cloud_config.rendered)
+    custom_data                                 = base64encode(data.template_file.linux_vm_cloud_config)
     network_interface_ids = [
         azurerm_network_interface.server_nic[each.key].id
     ]
