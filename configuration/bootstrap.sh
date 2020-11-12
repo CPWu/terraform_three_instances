@@ -9,3 +9,8 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
+rem ----- Installing Docker CE -----
+curl https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+docker --version
+sudo usermod -aG docker myadmin
