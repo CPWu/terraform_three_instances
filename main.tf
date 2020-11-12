@@ -208,7 +208,7 @@ resource "azurerm_network_interface" "server_nic" {
 data "azurerm_public_ip" "public_ips" {
     for_each                            = var.SERVER
     name                                = azurerm_public_ip.sandbox_public_ip[each.key].name
-    resource_group_name                 = azurerm_linux_virtual_machine.server[count.index].resource_group_name
+    resource_group_name                 = azurerm_linux_virtual_machine.server[each.key].resource_group_name
 
     depends_on = [
         azurerm_linux_virtual_machine.server
