@@ -225,7 +225,7 @@ resource "azurerm_network_interface_security_group_association" "nic_to_nsg" {
 }
 
 data "template_file" "linux_vm_cloud_config" {
-    template                                    = file("./configuration/bootstrap_k8s.sh")
+    template                                    = file("configuration/bootstrap_k8s.sh")
 }
 
 # Linux Virtual Machine
