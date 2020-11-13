@@ -14,7 +14,7 @@ resource "azurerm_virtual_network" "kubernetes_vnet" {
 
 # Subnet
 resource "azurerm_subnet" "kubernetes_subnet" {
-    name                                = "${var.RESOURCE_GROUP_NAMEå}-subnet"
+    name                                = "${var.RESOURCE_GROUP_NAME}-subnet"
     virtual_network_name                = azurerm_virtual_network.kubernetes_vnet.name
     resource_group_name                 = var.RESOURCE_GROUP_NAME
     address_prefixes                    = [var.SUBNET_ADDRESS_PREFIX]
